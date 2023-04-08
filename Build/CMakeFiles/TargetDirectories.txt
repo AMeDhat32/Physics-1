@@ -1,0 +1,3 @@
+D:/Projects/College/Physics/Build/CMakeFiles/script.dir
+D:/Projects/College/Physics/Build/CMakeFiles/edit_cache.dir
+D:/Projects/College/Physics/Build/CMakeFiles/rebuild_cache.dir
