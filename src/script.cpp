@@ -14,23 +14,23 @@ int main() {
 	string result;
 	bool running = true;
 
-	cout << " -----------------------------------------\n"
-					"|  Welcome to the number conversion tool  |\n"
-					" -----------------------------------------\n";
+	cout << " -----------------------------------------\n";
+	cout << "|  Welcome to the number conversion tool  |\n";
+	cout << " -----------------------------------------\n";
 
 	while (running) {
 
-		cout << "\nPlease choose an option:\n"
-						"--------------------------\n"
-						"1. Decimal to binary\n"
-						"2. Binary to decimal\n"
-						"3. Decimal to hexadecimal\n"
-						"4. Hexadecimal to decimal\n"
-						"5. Decimal to octal\n"
-						"6. Octal to decimal\n"
-						"7. to Exit\n"
-						"--------------------------\n"
-						"Your choice: ";
+		cout << "\nPlease choose an option:\n";
+		cout << "--------------------------\n";
+		cout << "1. Decimal to binary\n";
+		cout << "2. Binary to decimal\n";
+		cout << "3. Decimal to hexadecimal\n";
+		cout << "4. Hexadecimal to decimal\n";
+		cout << "5. Decimal to octal\n";
+		cout << "6. Octal to decimal\n";
+		cout << "7. to Exit\n";
+		cout << "--------------------------\n";
+		cout << "Your choice: ";
 		cin >> choice;
 
 		switch (choice) {

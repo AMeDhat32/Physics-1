@@ -1,7 +1,6 @@
 #ifndef GATES
 #define GATES
 
-
 class gates {
  public:
 
