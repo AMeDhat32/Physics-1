@@ -2,7 +2,7 @@
 using namespace std;
 
 typedef long long ll;
-
+//medhat
 // Convert decimal to binary
 string dec_to_bin(ll dec) {
 	string bin = "";
