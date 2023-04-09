@@ -1,54 +1,75 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include "../includes/gates.hpp"
+#include "../includes/conv.hpp"
+#include "../logos/logo.hpp"
+
 using namespace std;
 
-typedef long long ll;
-//medhat
-// Convert decimal to binary
-string dec_to_bin(ll dec) {
-	string bin = "";
-	while (dec) bin = to_string(dec % 2) + bin, dec /= 2;
-	return bin;
-}
-
-// Convert binary to decimal
-ll bin_to_dec(string bin) {
-	ll dec = 0, base = 1;
-	for (ll i = bin.size() - 1; i >= 0; i--) if (bin[i] == '1') dec += base, base *= 2;
-	return dec;
-}
-
-// Convert decimal to hexadecimal
-string dec_to_hex(ll dec) {
-	string hex = "";
-	while (dec) {
-		int rem = dec % 16;
-		hex = (rem < 10) ? to_string(rem) + hex : char ('A' + rem - 10) + hex;
-		dec /= 16;
-	}
-	return hex;
-}
-
-// Convert hexadecimal to decimal
-ll hex_to_dec(string hex) {
-	ll dec = 0, base = 1;
-	for (ll i = hex.size() - 1; i >= 0; i--)
-		dec += (hex[i] >= '0' && hex[i] <= '9') ? (hex[i] - '0') * base : (hex[i] - 'A' + 10) * base, base *= 16;
-	return dec;
-}
-
-// Convert octal to decimal
-int oct_to_dec(string oct) {
-	ll dec = 0, base = 1;
-	for (int i = oct.length() - 1; i >= 0; i--) dec += (oct[i] - '0') * base, base *= 8;
-	return dec;
-}
-
-// Convert decimal to octal
-string dec_to_oct(ll dec) {
-	string oct = "";
-	while (dec) oct = to_string(dec % 8) + oct, dec /= 8;
-	return oct;
-}
-
 int main() {
+	logo();
+
+	conv c;
+	int choice;
+	double input;
+	string result;
+	bool running = true;
+
+	cout << " -----------------------------------------\n"
+					"|  Welcome to the number conversion tool  |\n"
+					" -----------------------------------------\n";
+
+	while (running) {
+
+		cout << "\nPlease choose an option:\n"
+						"--------------------------\n"
+						"1. Decimal to binary\n"
+						"2. Binary to decimal\n"
+						"3. Decimal to hexadecimal\n"
+						"4. Hexadecimal to decimal\n"
+						"5. Decimal to octal\n"
+						"6. Octal to decimal\n"
+						"7. to Exit\n"
+						"--------------------------\n"
+						"Your choice: ";
+		cin >> choice;
+
+		switch (choice) {
+			case 1: cout << "Enter decimal number: ", cin >> input;
+				cout << input << " (decimal) = " << c.dec_to_bin(input) << " (binary)" << '\n';
+				break;
+
+			case 2: cout << "Enter binary number: ", cin >> result;
+				cout << result << " (binary) = " << c.binToDec(result) << " (decimal)" << '\n';
+				break;
+
+			case 3: cout << "Enter decimal number: ", cin >> input;
+				cout << input << " (decimal) = " << c.decToHex(input) << " (hexadecimal)" << '\n';
+				break;
+
+			case 4: cout << "Enter hexadecimal number: ", cin >> result;
+				cout << result << " (hexadecimal) = " << c.hexToDec(result) << " (decimal)" << '\n';
+				break;
+
+			case 5: cout << "Enter decimal number: ", cin >> input;
+				cout << input << " (decimal) = " << c.dec_to_oct(input) << " (octal)" << '\n';
+				break;
+
+			case 6: cout << "Enter octal number: ", cin >> result;
+				cout << result << " (octal) = " << c.octToDec(result) << " (decimal)" << '\n';
+				break;
+
+			case 7: cout << "\nthanks for using our tool. Goodbye!\n";
+				running = false;
+				break;
+
+			default: cout << "Invalid choice. Please enter a number between 1 and 7." << '\n';
+				continue;
+		}
+
+		if (running) {
+			char flag;
+			cout << "\nDo you want to continue using the tool? (y/n): ", cin >> flag;
+			if (tolower(flag) == 'n') cout << "\nthanks for using our tool. Goodbye!\n", running = false;
+		}
+	}
 }
