@@ -17,7 +17,6 @@ int main() {
   cout << " -----------------------------------------\n";
   cout << "|  Welcome to the number conversion tool  |\n";
   cout << " -----------------------------------------\n";
-
   while (running) {
     cout << "\nPlease choose an option:\n";
     cout << "--------------------------\n";
@@ -31,7 +30,6 @@ int main() {
     cout << "--------------------------\n";
     cout << "Your choice: ";
     cin >> choice;
-
     switch (choice) {
       case 1:
         cout << "Enter decimal number: ", cin >> input;
