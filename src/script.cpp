@@ -8,6 +8,7 @@ using namespace std;
 
 int main() {
   logo();
+  Sleep(1300);
   conv c;
   int choice;
   double input;
