@@ -23,7 +23,7 @@ class nsc {
     bin += ".";
 
     int counter = 0;
-    while (fractional != 0 && counter < 10) {
+    while (fractional != 0 and counter < 10) {
       fractional = fractional * 2;
       int bit = int(fractional);
       bin += to_string(bit);
@@ -100,7 +100,7 @@ class nsc {
       dec_point = hex.size();
 
     for (int i = dec_point - 1; i >= 0; i--) {
-      if (hex[i] >= '0' && hex[i] <= '9')
+      if (hex[i] >= '0' and hex[i] <= '9')
         dec = dec + (hex[i] - '0') * base;
       else
         dec = dec + (hex[i] - 'A' + 10) * base;
@@ -109,7 +109,7 @@ class nsc {
 
     base = 16;
     for (int i = dec_point + 1; i < hex.size(); i++) {
-      dec += (hex[i] >= '0' && hex[i] <= '9') ? (hex[i] - '0') / base : (hex[i] - 'A' + 10) / base;
+      dec += (hex[i] >= '0' and hex[i] <= '9') ? (hex[i] - '0') / base : (hex[i] - 'A' + 10) / base;
       base *= 16;
     }
 
@@ -131,7 +131,7 @@ class nsc {
     oct += ".";
 
     int counter = 0;
-    while (fractional != 0 && counter < 10) {
+    while (fractional != 0 and counter < 10) {
       fractional *= 8;
       int bit = int(fractional);
       oct += to_string(bit);
@@ -166,40 +166,128 @@ class nsc {
     return to_string(dec);
   }
 
-  // Convert octal to hexadecimal
-  string octToHex(string oct) {
-    string dec = octToDec(oct);
-    return decToHex(dec);
-  }
-
-  // Convert hexadecimal to octal
-  string hexToOct(string hex) {
-    string dec = hexToDec(hex);
-    return decToOct(dec);
-  }
-
-  // Convert hexadecimal to binary
-  string hexToBin(string hex) {
-    string dec = hexToDec(hex);
-    return decToBin(dec);
-  }
-
   // Convert binary to octal
-  string binToOct(string bin) {
-    string dec = binToDec(bin);
-    return decToOct(dec);
+  string binToOct(string binary) {
+    string octal = "";
+    int point = binary.find('.');
+    if (point == -1) point = binary.size();
+    string intpart = binary.substr(0, point), decpart = binary.substr(point + 1);
+    while (intpart.size() % 3) intpart = '0' + intpart;
+    while (decpart.size() % 3) decpart += '0';
+    ///////////////
+    auto bin = [](string sub) {
+      int num = 0;
+      if (sub[0] == '1') num += 4;
+      if (sub[1] == '1') num += 2;
+      if (sub[2] == '1') num += 1;
+      return to_string(num);
+    };
+    //////////////////////////
+    for (int i = 0; i < intpart.size(); i += 3) {
+      octal += bin(intpart.substr(i, 3));
+    }
+    octal += '.';
+    for (int i = 0; i < decpart.size(); i += 3) {
+      octal += bin(decpart.substr(i, 3));
+    }
+    if (octal.back() == '.') octal += '0';
+    return octal;
   }
 
-  // Convert binary to hexadecimal
-  string binToHex(string bin) {
-    string dec = binToDec(bin);
-    return decToHex(dec);
+  string binToHex(string binary) {
+    string hexadecimal = "";
+    int point = binary.find('.');
+    if (point == -1) point = binary.size();
+    string intpart = binary.substr(0, point), decpart = binary.substr(point + 1);
+    while (intpart.size() % 4) intpart = '0' + intpart;
+    while (decpart.size() % 4) decpart += '0';
+    ///////////////
+    auto bin = [](string sub) {
+      int num = 0;
+      if (sub[0] == '1') num += 8;
+      if (sub[1] == '1') num += 4;
+      if (sub[2] == '1') num += 2;
+      if (sub[3] == '1') num += 1;
+      if (num < 10) return to_string(num);
+      string hex = "";
+      hex += (num - 10 + 'A');
+      return hex;
+    };
+    //////////////////////////
+    for (int i = 0; i < intpart.size(); i += 4) {
+      hexadecimal += bin(intpart.substr(i, 4));
+    }
+    hexadecimal += '.';
+    for (int i = 0; i < decpart.size(); i += 4) {
+      hexadecimal += bin(decpart.substr(i, 4));
+    }
+    if (hexadecimal.back() == '.') hexadecimal += '0';
+    return hexadecimal;
   }
 
-  // Convert octal to binary
-  string octToBin(string oct) {
-    string dec = octToDec(oct);
-    return decToBin(dec);
+  string octToBin(string octal) {
+    string binary = "";
+    auto bin = [](int bit) {
+      string subbinary = "";
+      while (bit) {
+        subbinary += (bit % 2 + '0');
+        bit /= 2;
+      }
+      while (subbinary.size() < 3) subbinary += '0';
+      reverse(subbinary.begin(), subbinary.end());
+      return subbinary;
+    };
+    for (int i = 0; i < octal.size(); i++) {
+      if (octal[i] == '.')
+        binary += '.';
+      else
+        binary += bin(octal[i] - '0');
+    }
+    return binary;
+  }
+
+  string hexToBin(string hexadecimal) {
+    string binary = "";
+    auto bin = [](int bit) {
+      string subbinary = "";
+      while (bit) {
+        subbinary += (bit % 2 + '0');
+        bit /= 2;
+      }
+      while (subbinary.size() < 4) subbinary += '0';
+      reverse(subbinary.begin(), subbinary.end());
+      return subbinary;
+    };
+    for (int i = 0; i < hexadecimal.size(); i++) {
+      if (hexadecimal[i] == '.')
+        binary += '.';
+      else if (hexadecimal[i] >= '0' && hexadecimal[i] <= '9')
+        binary += bin(hexadecimal[i] - '0');
+      else
+        binary += bin(hexadecimal[i] - 'A' + 10);
+    }
+    return binary;
+  }
+
+  string hexToOct(string hexadecimal) {
+    string octal = "";
+    int point = hexadecimal.find('.');
+    if (point == -1) point = hexadecimal.size();
+    string intpart = hexadecimal.substr(0, point), decpart = hexadecimal.substr(point + 1);
+    intpart = hexToBin(intpart);
+    decpart = hexToBin(decpart);
+    octal = binToOct(intpart + '.' + decpart);
+    return octal;
+  }
+  string octToHex(string octal) {
+    string hexadecimal = "";
+    int point = octal.find('.');
+    if (point == -1) point = octal.size();
+    string intpart = octal.substr(0, point), decpart = octal.substr(point + 1);
+    intpart = octToBin(intpart);
+    decpart = octToBin(decpart);
+    hexadecimal = binToHex(intpart + '.' + decpart);
+    return hexadecimal;
   }
 };
 
@@ -228,6 +316,10 @@ class gates {
 
   // Implication gate
   bool _imp(bool a, bool b) { return !a or b; }
+};
+
+class Complementer {
+ public:
 };
 
 #endif  // FUNCTIONS

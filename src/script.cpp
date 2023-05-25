@@ -6,18 +6,19 @@
 using namespace std;
 
 void main_scr() {
-  cout << "===================================================" << '\n';
+  cout << "\n===================================================" << '\n';
   cout << "Welcome to the Number Systems Conversion and Logic Gates Program!" << '\n';
   cout << "===================================================" << '\n';
   cout << "Please select an option:" << '\n';
   cout << "1. Number Systems Conversion" << '\n';
   cout << "2. Logic Gates" << '\n';
-  cout << "3. Exit" << '\n';
+  cout << "3. Complement Function" << '\n';
+  cout << "4. Exit" << '\n';
   cout << "===================================================" << '\n';
 }
 
 void nsc_scr() {
-  cout << "==================================" << '\n';
+  cout << "\n==================================" << '\n';
   cout << "Number Systems Conversion" << '\n';
   cout << "==================================" << '\n';
   cout << "Please select the base:" << '\n';
@@ -110,7 +111,7 @@ void conv_tool(int b1, int b2) {
 }
 
 void gates_src() {
-  cout << "===================" << '\n';
+  cout << "\n===================" << '\n';
   cout << "Logic Gates" << '\n';
   cout << "===================" << '\n';
   cout << "Please select a logic gate:" << '\n';
@@ -180,7 +181,7 @@ int main() {
   int choice;
   int b1, b2;
   // for exit from the program
-  bool flag = 0;
+  bool flag = false;
 
   while (!flag) {
     main_scr();
@@ -189,12 +190,12 @@ int main() {
 
     switch (choice) {
       case 1:  // Number Systems Conversion
-        while (1) {
+        while (true) {
           Sleep(1000);  // Pause for 1 second
           nsc_scr();
           cout << '\n';
           cout << '\n';
-          cout << "Enter the base you want to convert from or press 5 to return to main menu: ";
+          cout << "Enter the base you want to convert from or press 5 to return to the main menu: ";
           cin >> b1;
           if (b1 == 5) break;  // Go back to the main menu
 
@@ -203,6 +204,14 @@ int main() {
 
           conv_tool(b1, b2);
           Sleep(1000);  // Pause for 1 second
+
+          cout << "Do you want to continue? (Y/N): ";
+          char cont;
+          cin >> cont;
+          if (cont != 'Y' && cont != 'y') {
+            Sleep(700);
+            break;
+          }
         }
         break;
       case 2:  // Logic Gates
@@ -216,6 +225,14 @@ int main() {
           }
 
           gates_tool(choice);
+
+          cout << "Do you want to continue? (Y/N): ";
+          char continueChoice;
+          cin >> continueChoice;
+          if (continueChoice != 'Y' && continueChoice != 'y') {
+            Sleep(700);
+            break;
+          }
         }
         break;
       case 3:  // Exit Program
@@ -226,5 +243,4 @@ int main() {
         break;
     }
   }
-
 }
